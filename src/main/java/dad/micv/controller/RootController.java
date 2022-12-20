@@ -6,8 +6,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import org.hildan.fxgson.FxGson;
+import org.hildan.fxgson.FxGsonBuilder;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import dad.micv.App;
 import dad.micv.model.Personal;
@@ -129,11 +131,11 @@ public class RootController implements Initializable {
     @FXML
     private void onGuardarAction(ActionEvent event) {
 
-        FileChooser fileChooser = new FileChooser();
+        // FileChooser fileChooser = new FileChooser();
 
-        fileChooser.getExtensionFilters().add(new ExtensionFilter("Fichero Curriculum Vitae", ".cv"));
+        // fileChooser.getExtensionFilters().add(new ExtensionFilter("Fichero Curriculum Vitae", ".cv"));
 
-        File ficheroGuardado = fileChooser.showSaveDialog(App.primaryStage);
+        // File ficheroGuardado = fileChooser.showSaveDialog(App.primaryStage);
 
         /*
          * TODO
@@ -142,12 +144,14 @@ public class RootController implements Initializable {
          * datos de un CV
          */
 
-        Gson gson = FxGson.create();
+        GsonBuilder builder = new GsonBuilder().setPrettyPrinting();
 
-        String json = gson.toJson(personal);
+        Gson fxGson = FxGson.addFxSupport(builder).create();
+
+        String json = fxGson.toJson(personal);
 
         System.out.println(json);
-        
+         
     }
 
     @FXML
